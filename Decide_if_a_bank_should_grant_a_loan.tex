@@ -1,0 +1,2191 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{report}
+
+    
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{ulem} % ulem is needed to support strikethroughs (\sout)
+    
+
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Decide\_if\_a\_bank\_should\_grant\_a\_loan}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    
+    \maketitle
+    
+    
+    \tableofcontents
+
+
+    
+\chapter{Background}\label{background}
+
+We are given a bank's loan records with information of individuals who
+have applied for loans. Some of the loans are approved and some are
+rejected. Out of the approved loans, some were repaid, and others were
+defaulted. The goal is to investigate if we could build a better model
+for the bank by examinig its loan data.
+
+We take the approach of building a model that predicts whether an
+individual, if granted a loan, will repay the loan or not. With this
+model, we then predict how many of those who've been denied loans could
+have been good customers who repay their loans fully. The percentage of
+individuals who should've been granted loans could translate to an
+increase of financial returns for the bank for not denying good
+business.
+
+\chapter{Import libraries}\label{import-libraries}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{zipfile}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{collections}
+        
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k+kn}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k+kn}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k+kn}{as} \PY{n+nn}{sns}
+        
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.neighbors} \PY{k+kn}{import} \PY{n}{KNeighborsClassifier}\PY{p}{,} \PY{n}{KNeighborsRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.preprocessing} \PY{k+kn}{import} \PY{n}{LabelEncoder}\PY{p}{,} \PY{n}{MinMaxScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{model\PYZus{}selection}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{cross\PYZus{}validation}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{preprocessing}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{svm}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{linear\PYZus{}model}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{tree}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{ensemble} \PY{c+c1}{\PYZsh{} RandomForestClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.naive\PYZus{}bayes} \PY{k+kn}{import} \PY{n}{GaussianNB}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k+kn}{import} \PY{n}{metrics}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn.feature\PYZus{}selection} \PY{k+kn}{import} \PY{n}{SelectFromModel}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/yingjiang/miniconda2/lib/python2.7/site-packages/sklearn/cross\_validation.py:44: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model\_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+    \end{Verbatim}
+
+\chapter{User defined functions}\label{user-defined-functions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{k}{def} \PY{n+nf}{fill\PYZus{}na\PYZus{}KNN}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{column}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Treat missing values as a classification / regresion problem}
+         \PY{l+s+sd}{    df = original dataframe with NA cols}
+         \PY{l+s+sd}{    column = col you want to impute}
+         \PY{l+s+sd}{    model = the classification or regression model used to fill in the NAs}
+         \PY{l+s+sd}{    Returns imputed column.}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Remove all cols containing NAs, except for the col we want to impute.}
+             \PY{c+c1}{\PYZsh{} Split the cols with and without missing values}
+             \PY{n}{colNAs} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+             \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Join back the col we want to impute}
+             \PY{n}{ndf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df}\PY{p}{,} \PY{n}{colNAs}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{column}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Split into rows with known (train) and missing values (test)}
+             \PY{c+c1}{\PYZsh{} Get a row\PYZhy{}wise boolean for the rows containing the NAs (in the specified col)}
+             \PY{n}{nullmask} \PY{o}{=} \PY{n}{ndf}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} The rows containing NAs are the testing data; otherwise the training data}
+             \PY{n}{train}\PY{p}{,} \PY{n}{test}  \PY{o}{=} \PY{n}{ndf}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{nullmask}\PY{p}{]}\PY{p}{,} \PY{n}{ndf}\PY{p}{[}\PY{n}{nullmask}\PY{p}{]}
+             \PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{column}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{train}\PY{p}{[}\PY{n}{column}\PY{p}{]}
+             \PY{n}{test\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y} \PY{o}{=} \PY{n}{test}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{column}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{test}\PY{p}{[}\PY{n}{column}\PY{p}{]}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Fit KNN model}
+             \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{)}
+             \PY{n}{pred\PYZus{}y} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} Stitch together the NA\PYZhy{}filled dataset.}
+             \PY{c+c1}{\PYZsh{} Arrange the rows in the original order to prepare for next imputation.}
+             \PY{c+c1}{\PYZsh{} Converted the predicted array (np array) into a Series object with the orignal index}
+             \PY{n}{pred\PYZus{}y} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{pred\PYZus{}y}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{index}\PY{p}{)}
+             \PY{n}{new\PYZus{}y} \PY{o}{=} \PY{n}{new\PYZus{}y} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{pred\PYZus{}y}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{new\PYZus{}y}
+         
+         
+         \PY{k}{def} \PY{n+nf}{performCV}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{p}{,} \PY{n}{model}\PY{p}{)}\PY{p}{:}
+             \PY{n}{Y\PYZus{}pred} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{Y\PYZus{}true} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{trainIdx}\PY{p}{,} \PY{n}{cvIdx} \PY{o+ow}{in} \PY{n}{cv}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{Y\PYZus{}pred}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{trainIdx}\PY{p}{]}\PY{p}{,}
+                                         \PY{n}{Y\PYZus{}train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{trainIdx}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{cvIdx}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{Y\PYZus{}true}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Y\PYZus{}train}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{cvIdx}\PY{p}{]}\PY{p}{)}
+             \PY{k}{return} \PY{n}{Y\PYZus{}pred}\PY{p}{,} \PY{n}{Y\PYZus{}true}
+                 
+         \PY{k}{def} \PY{n+nf}{unpackCVResults}\PY{p}{(}\PY{n}{Y\PYZus{}pred}\PY{p}{,} \PY{n}{Y\PYZus{}true}\PY{p}{)}\PY{p}{:}
+             \PY{n}{Y\PYZus{}pred\PYZus{}unpack} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{Y\PYZus{}true\PYZus{}unpack} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{yp}\PY{p}{,} \PY{n}{yt} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{Y\PYZus{}pred}\PY{p}{,} \PY{n}{Y\PYZus{}true}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{Y\PYZus{}pred\PYZus{}unpack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{pred\PYZus{}val}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{pred\PYZus{}val} \PY{o+ow}{in} \PY{n}{yp}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{Y\PYZus{}true\PYZus{}unpack}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n+nb}{list}\PY{p}{(}\PY{n}{yt}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{Y\PYZus{}pred\PYZus{}unpack}\PY{p}{,} \PY{n}{Y\PYZus{}true\PYZus{}unpack}
+         
+         \PY{k}{def} \PY{n+nf}{getCVScores}\PY{p}{(}\PY{n}{Y\PYZus{}pred\PYZus{}unpack}\PY{p}{,} \PY{n}{Y\PYZus{}true\PYZus{}unpack}\PY{p}{)}\PY{p}{:}
+             \PY{n}{cvScore\PYZus{}Acc} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{cvScore\PYZus{}Sens} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{cvScore\PYZus{}Spec} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{cvScore\PYZus{}Prec} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{yp}\PY{p}{,} \PY{n}{yt} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{Y\PYZus{}pred\PYZus{}unpack}\PY{p}{,} \PY{n}{Y\PYZus{}true\PYZus{}unpack}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{cm} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{yt}\PY{p}{,} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{yp}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{)}
+                 \PY{n}{accuracy}\PY{p}{,} \PY{n}{sensitivity}\PY{p}{,} \PY{n}{specificity}\PY{p}{,} \PY{n}{precision} \PY{o}{=} \PY{n}{evalModel}\PY{p}{(}\PY{n}{cm}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{}\PYZsh{} Alternative way of calculating accuracy instead of through cm:}
+                 \PY{c+c1}{\PYZsh{} match = [i for i, j in zip(Y\PYZus{}pred0, Y\PYZus{}true0) if i == j]}
+                 \PY{c+c1}{\PYZsh{} len(match) / float(len(Y\PYZus{}pred0))}
+                 \PY{n}{cvScore\PYZus{}Acc}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{accuracy}\PY{p}{)}
+                 \PY{n}{cvScore\PYZus{}Sens}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{sensitivity}\PY{p}{)}
+                 \PY{n}{cvScore\PYZus{}Spec}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{specificity}\PY{p}{)}
+                 \PY{n}{cvScore\PYZus{}Prec}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{precision}\PY{p}{)}
+             \PY{n}{cvScore} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{cvScore\PYZus{}Acc}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sensitivity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{cvScore\PYZus{}Sens}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{specificity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{cvScore\PYZus{}Spec}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{precision}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{cvScore\PYZus{}Prec}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{cvScore\PYZus{}Sens}
+                 \PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{k}{return} \PY{n}{cvScore}
+         
+         \PY{k}{def} \PY{n+nf}{evalModel}\PY{p}{(}\PY{n}{cm}\PY{p}{)}\PY{p}{:}
+             \PY{n}{TN} \PY{o}{=} \PY{n}{cm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{FP} \PY{o}{=} \PY{n}{cm}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{FN} \PY{o}{=} \PY{n}{cm}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{n}{TP} \PY{o}{=} \PY{n}{cm}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n}{P} \PY{o}{=} \PY{n}{FN} \PY{o}{+} \PY{n}{TP}
+             \PY{n}{N} \PY{o}{=} \PY{n}{TN} \PY{o}{+} \PY{n}{FP}
+             \PY{n}{Acc} \PY{o}{=} \PY{p}{(}\PY{n}{TN} \PY{o}{+} \PY{n}{TP}\PY{p}{)} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{P} \PY{o}{+} \PY{n}{N}\PY{p}{)}
+             \PY{n}{sensitivity} \PY{o}{=} \PY{n}{TP} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+             \PY{n}{specificity} \PY{o}{=} \PY{n}{TN} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{N}\PY{p}{)}
+             \PY{n}{precision} \PY{o}{=} \PY{n}{TP} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{TP}\PY{o}{+}\PY{n}{FP}\PY{p}{)}
+             \PY{n}{NPV} \PY{o}{=} \PY{n}{TN} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{TN}\PY{o}{+}\PY{n}{FN}\PY{p}{)}
+             \PY{n}{FPR} \PY{o}{=} \PY{n}{FP} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{FP}\PY{o}{+}\PY{n}{TN}\PY{p}{)}
+             \PY{n}{FDR} \PY{o}{=} \PY{n}{FP} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{FP}\PY{o}{+}\PY{n}{TP}\PY{p}{)}
+             \PY{n}{F1} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{*}\PY{n}{TP} \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{TP} \PY{o}{+} \PY{n}{FP} \PY{o}{+} \PY{n}{FN}\PY{p}{)}
+             \PY{k}{return} \PY{n}{Acc}\PY{p}{,} \PY{n}{sensitivity}\PY{p}{,} \PY{n}{specificity}\PY{p}{,} \PY{n}{precision}
+\end{Verbatim}
+
+\chapter{Load data}\label{load-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{n}{os}\PY{o}{.}\PY{n}{getcwd}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} ['.ipynb\_checkpoints',
+         'borrower\_table.csv',
+         'Loan\_granting.ipynb',
+         'Loan\_granting.zip',
+         'loan\_table.csv']
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{borrower} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{borrower\PYZus{}table.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{loan} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}table.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{borrower}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    loan\_id  is\_first\_loan  fully\_repaid\_previous\_loans  \textbackslash{}
+        0   289774              1                          NaN   
+        1   482590              0                          1.0   
+        2   135565              1                          NaN   
+        3   207797              0                          1.0   
+        4   828078              0                          0.0   
+        
+           currently\_repaying\_other\_loans  total\_credit\_card\_limit  \textbackslash{}
+        0                             NaN                     8000   
+        1                             0.0                     4500   
+        2                             NaN                     6900   
+        3                             0.0                     1200   
+        4                             0.0                     6900   
+        
+           avg\_percentage\_credit\_card\_limit\_used\_last\_year  saving\_amount  \textbackslash{}
+        0                                             0.49           3285   
+        1                                             1.03            636   
+        2                                             0.82           2085   
+        3                                             0.82            358   
+        4                                             0.80           2138   
+        
+           checking\_amount  is\_employed  yearly\_salary  age  dependent\_number  
+        0             1073            0              0   47                 3  
+        1             5299            1          13500   33                 1  
+        2             3422            1          24500   38                 8  
+        3             3388            0              0   24                 1  
+        4             4282            1          18100   36                 1  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{loan}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}    loan\_id loan\_purpose        date  loan\_granted  loan\_repaid
+        0    19454   investment  2012-03-15             0          NaN
+        1   496811   investment  2012-01-17             0          NaN
+        2   929493        other  2012-02-09             0          NaN
+        3   580653        other  2012-06-27             1          1.0
+        4   172419     business  2012-05-21             1          0.0
+\end{Verbatim}
+        
+\chapter{Clean data}\label{clean-data}
+
+\section{1. Merge data}\label{merge-data}
+
+Overall goal here is to predict if a loan should be granted to an
+individual or not. We therefore use the individuals who've been granted
+loans (loan\_granted = 1) to train our model. We then use the denied
+rows (loan\_granted = 0) as the test set, to see how many of these
+denied folks are actually predicted to honestly return their loans. This
+will be the money the bank lost.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{print} \PY{n}{borrower}\PY{o}{.}\PY{n}{columns}
+        \PY{k}{print} \PY{n}{borrower}\PY{o}{.}\PY{n}{shape}
+        \PY{k}{print} \PY{n}{loan}\PY{o}{.}\PY{n}{columns}
+        \PY{k}{print} \PY{n}{loan}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index([u'loan\_id', u'is\_first\_loan', u'fully\_repaid\_previous\_loans',
+       u'currently\_repaying\_other\_loans', u'total\_credit\_card\_limit',
+       u'avg\_percentage\_credit\_card\_limit\_used\_last\_year', u'saving\_amount',
+       u'checking\_amount', u'is\_employed', u'yearly\_salary', u'age',
+       u'dependent\_number'],
+      dtype='object')
+(101100, 12)
+Index([u'loan\_id', u'loan\_purpose', u'date', u'loan\_granted', u'loan\_repaid'], dtype='object')
+(101100, 5)
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{loanData} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{borrower}\PY{p}{,} \PY{n}{loan}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{print} \PY{n}{loanData}\PY{o}{.}\PY{n}{columns}
+        \PY{k}{print} \PY{n}{loanData}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index([u'loan\_id', u'is\_first\_loan', u'fully\_repaid\_previous\_loans',
+       u'currently\_repaying\_other\_loans', u'total\_credit\_card\_limit',
+       u'avg\_percentage\_credit\_card\_limit\_used\_last\_year', u'saving\_amount',
+       u'checking\_amount', u'is\_employed', u'yearly\_salary', u'age',
+       u'dependent\_number', u'loan\_purpose', u'date', u'loan\_granted',
+       u'loan\_repaid'],
+      dtype='object')
+(101100, 16)
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{granted} \PY{o}{=} \PY{n}{loanData}\PY{p}{[}\PY{n}{loanData}\PY{o}{.}\PY{n}{loan\PYZus{}granted} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+        \PY{n}{granted}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}granted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+        \PY{k}{print} \PY{n}{granted}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(47654, 15)
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/yingjiang/miniconda2/lib/python2.7/site-packages/ipykernel/\_\_main\_\_.py:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  from ipykernel import kernelapp as app
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{granted}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}              loan\_id  is\_first\_loan  fully\_repaid\_previous\_loans  \textbackslash{}
+         count   47654.000000   47654.000000                 21865.000000   
+         mean   500187.775402       0.541172                     0.902493   
+         std    288925.682009       0.498307                     0.296654   
+         min        37.000000       0.000000                     0.000000   
+         25\%    248669.250000       0.000000                     1.000000   
+         50\%    500013.500000       1.000000                     1.000000   
+         75\%    750413.250000       1.000000                     1.000000   
+         max    999968.000000       1.000000                     1.000000   
+         
+                currently\_repaying\_other\_loans  total\_credit\_card\_limit  \textbackslash{}
+         count                    21865.000000             47654.000000   
+         mean                         0.297736              4527.848659   
+         std                          0.457273              1975.127016   
+         min                          0.000000                 0.000000   
+         25\%                          0.000000              3100.000000   
+         50\%                          0.000000              4400.000000   
+         75\%                          1.000000              5800.000000   
+         max                          1.000000             13500.000000   
+         
+                avg\_percentage\_credit\_card\_limit\_used\_last\_year  saving\_amount  \textbackslash{}
+         count                                     46751.000000   47654.000000   
+         mean                                          0.700091    2022.366580   
+         std                                           0.177729    1493.410303   
+         min                                           0.000000       0.000000   
+         25\%                                           0.580000     914.000000   
+         50\%                                           0.710000    1553.000000   
+         75\%                                           0.830000    2878.000000   
+         max                                           1.090000   10641.000000   
+         
+                checking\_amount   is\_employed  yearly\_salary           age  \textbackslash{}
+         count     47654.000000  47654.000000   47654.000000  47654.000000   
+         mean       3499.160595      0.909829   29245.991942     41.524657   
+         std        2155.128304      0.286429   16286.512395     12.817587   
+         min           0.000000      0.000000       0.000000     18.000000   
+         25\%        1873.000000      1.000000   18900.000000     32.000000   
+         50\%        3024.500000      1.000000   29400.000000     41.000000   
+         75\%        4842.000000      1.000000   40200.000000     50.000000   
+         max       13165.000000      1.000000   97200.000000     79.000000   
+         
+                dependent\_number   loan\_repaid  
+         count      47654.000000  47654.000000  
+         mean           3.752445      0.644353  
+         std            2.621351      0.478714  
+         min            0.000000      0.000000  
+         25\%            2.000000      0.000000  
+         50\%            3.000000      1.000000  
+         75\%            6.000000      1.000000  
+         max            8.000000      1.000000  
+\end{Verbatim}
+        
+\section{\texorpdfstring{2. Drop `date'
+column}{2. Drop date column}}\label{drop-date-column}
+
+We can drop the date feature first to see if a good enough model can be
+built. If date features can offer further insight, e.g.~default is more
+likely when the grant is applied in certain months, the column can be
+considered in future.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{granted}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/yingjiang/miniconda2/lib/python2.7/site-packages/ipykernel/\_\_main\_\_.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  if \_\_name\_\_ == '\_\_main\_\_':
+    \end{Verbatim}
+
+\section{3. Convert categorical variable into
+numeric}\label{convert-categorical-variable-into-numeric}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{granted}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} loan\_id                                              int64
+         is\_first\_loan                                        int64
+         fully\_repaid\_previous\_loans                        float64
+         currently\_repaying\_other\_loans                     float64
+         total\_credit\_card\_limit                              int64
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year    float64
+         saving\_amount                                        int64
+         checking\_amount                                      int64
+         is\_employed                                          int64
+         yearly\_salary                                        int64
+         age                                                  int64
+         dependent\_number                                     int64
+         loan\_purpose                                        object
+         loan\_repaid                                        float64
+         dtype: object
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{granted}\PY{o}{.}\PY{n}{select\PYZus{}dtypes}\PY{p}{(}\PY{n}{include}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{O}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} Index([u'loan\_purpose'], dtype='object')
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{granted}\PY{o}{.}\PY{n}{loan\PYZus{}purpose}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} array(['other', 'business', 'emergency\_funds', 'investment', 'home'], dtype=object)
+\end{Verbatim}
+        
+There are five types of loan purposes. If one uses LabelEncoder, which
+generates ordinal labels -
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{purpose\PYZus{}encoder} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+         \PY{n}{purpose\PYZus{}encoder}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{granted}\PY{o}{.}\PY{n}{loan\PYZus{}purpose}\PY{p}{)}
+         \PY{k}{print} \PY{n}{purpose\PYZus{}encoder}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{granted}\PY{o}{.}\PY{n}{loan\PYZus{}purpose}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{]}
+         \PY{k}{print} \PY{n}{granted}\PY{o}{.}\PY{n}{loan\PYZus{}purpose}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[4 4 0 1 0 0 0 1 0 3 2 0 2 0 1 0 3 0 1 2]
+2               other
+5               other
+7            business
+8     emergency\_funds
+9            business
+10           business
+11           business
+13    emergency\_funds
+16           business
+17         investment
+21               home
+22           business
+23               home
+31           business
+35    emergency\_funds
+39           business
+40         investment
+42           business
+45    emergency\_funds
+47               home
+Name: loan\_purpose, dtype: object
+    \end{Verbatim}
+
+Since loan purposes don't have an ordinal relationship, one-hot encoding
+is more desirable. It retains more info by creating only four more
+columns.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{for} \PY{n}{purpose} \PY{o+ow}{in} \PY{n}{granted}\PY{o}{.}\PY{n}{loan\PYZus{}purpose}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{granted}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purpose\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{purpose}\PY{p}{]} \PY{o}{=} \PY{n}{granted}\PY{o}{.}\PY{n}{loan\PYZus{}purpose}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{n}{purpose}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+         \PY{n}{granted}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}purpose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/yingjiang/miniconda2/lib/python2.7/site-packages/ipykernel/\_\_main\_\_.py:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  from ipykernel import kernelapp as app
+/Users/yingjiang/miniconda2/lib/python2.7/site-packages/ipykernel/\_\_main\_\_.py:3: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  app.launch\_new\_instance()
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{granted}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}    loan\_id  is\_first\_loan  fully\_repaid\_previous\_loans  \textbackslash{}
+         2   135565              1                          NaN   
+         5   423171              1                          NaN   
+         7   200139              1                          NaN   
+         8   991294              0                          1.0   
+         9   875332              0                          1.0   
+         
+            currently\_repaying\_other\_loans  total\_credit\_card\_limit  \textbackslash{}
+         2                             NaN                     6900   
+         5                             NaN                     6100   
+         7                             NaN                     4000   
+         8                             0.0                     7000   
+         9                             0.0                     4300   
+         
+            avg\_percentage\_credit\_card\_limit\_used\_last\_year  saving\_amount  \textbackslash{}
+         2                                             0.82           2085   
+         5                                             0.53           6163   
+         7                                             0.57            602   
+         8                                             0.52           2575   
+         9                                             0.83            722   
+         
+            checking\_amount  is\_employed  yearly\_salary  age  dependent\_number  \textbackslash{}
+         2             3422            1          24500   38                 8   
+         5             5298            1          29500   24                 1   
+         7             2757            1          31700   36                 8   
+         8             2917            1          58900   33                 3   
+         9              892            1           5400   32                 7   
+         
+            loan\_repaid  purpose\_other  purpose\_business  purpose\_emergency\_funds  \textbackslash{}
+         2          1.0              1                 0                        0   
+         5          1.0              1                 0                        0   
+         7          0.0              0                 1                        0   
+         8          1.0              0                 0                        1   
+         9          1.0              0                 1                        0   
+         
+            purpose\_investment  purpose\_home  
+         2                   0             0  
+         5                   0             0  
+         7                   0             0  
+         8                   0             0  
+         9                   0             0  
+\end{Verbatim}
+        
+\section{4. Deal with missing values}\label{deal-with-missing-values}
+
+Three columns have a large number of missing values. The strategy is to
+build models without these columns, or after imputing the missing values
+by k-nearest neighbor regression. Then compare the model performance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{loanData}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} loan\_id                                                0
+         is\_first\_loan                                          0
+         fully\_repaid\_previous\_loans                        54947
+         currently\_repaying\_other\_loans                     54947
+         total\_credit\_card\_limit                                0
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year     6972
+         saving\_amount                                          0
+         checking\_amount                                        0
+         is\_employed                                            0
+         yearly\_salary                                          0
+         age                                                    0
+         dependent\_number                                       0
+         loan\_purpose                                           0
+         date                                                   0
+         loan\_granted                                           0
+         loan\_repaid                                        53446
+         dtype: int64
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{granted}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} loan\_id                                                0
+         is\_first\_loan                                          0
+         fully\_repaid\_previous\_loans                        25789
+         currently\_repaying\_other\_loans                     25789
+         total\_credit\_card\_limit                                0
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year      903
+         saving\_amount                                          0
+         checking\_amount                                        0
+         is\_employed                                            0
+         yearly\_salary                                          0
+         age                                                    0
+         dependent\_number                                       0
+         loan\_repaid                                            0
+         purpose\_other                                          0
+         purpose\_business                                       0
+         purpose\_emergency\_funds                                0
+         purpose\_investment                                     0
+         purpose\_home                                           0
+         dtype: int64
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of loans granted:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{granted}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{loanData}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of individuals with payment history missing granted loans:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{granted}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{loanData}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of individuals with credit\PYZhy{}limit\PYZhy{}use missing granted loans:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{granted}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{loanData}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Percentage of loans granted: 0.471355093966
+Percentage of individuals with payment history missing granted loans: 0.469343185251
+Percentage of individuals with credit-limit-use missing granted loans: 0.129518072289
+    \end{Verbatim}
+
+It seems that the bank doesn't discriminate against people who've
+missing payment history when granting loans. But they do grant loans
+more to people whose credit limit use information is declared / known.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{group} \PY{o+ow}{in} \PY{n}{granted}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}repaid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Repaid loan?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{key}
+             \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of cases:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{group}\PY{o}{.}\PY{n}{shape}
+             \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f individuals with previous payment history missing:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{group}\PY{o}{.}\PY{n}{fully\PYZus{}repaid\PYZus{}previous\PYZus{}loans}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{group}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f individuals with current payment history missing:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{group}\PY{o}{.}\PY{n}{currently\PYZus{}repaying\PYZus{}other\PYZus{}loans}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{group}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{} o}\PY{l+s+s1}{f individuals with credit\PYZhy{}limit\PYZhy{}use missing:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{group}\PY{o}{.}\PY{n}{avg\PYZus{}percentage\PYZus{}credit\PYZus{}card\PYZus{}limit\PYZus{}used\PYZus{}last\PYZus{}year}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{group}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Repaid loan? 0.0
+Number of cases: (16948, 18)
+\% of individuals with previous payment history missing: 0.532570214775
+\% of individuals with current payment history missing: 0.532570214775
+\% of individuals with credit-limit-use missing: 0.0440759971678
+Repaid loan? 1.0
+Number of cases: (30706, 18)
+\% of individuals with previous payment history missing: 0.545919364294
+\% of individuals with current payment history missing: 0.545919364294
+\% of individuals with credit-limit-use missing: 0.00508044030483
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{granted}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}                                                   loan\_id  is\_first\_loan  \textbackslash{}
+         loan\_id                                          1.000000       0.002246   
+         is\_first\_loan                                    0.002246       1.000000   
+         fully\_repaid\_previous\_loans                      0.001710            NaN   
+         currently\_repaying\_other\_loans                   0.005651            NaN   
+         total\_credit\_card\_limit                         -0.000655       0.003657   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year  0.001768      -0.004016   
+         saving\_amount                                   -0.004482       0.009611   
+         checking\_amount                                 -0.000531       0.010356   
+         is\_employed                                      0.012130      -0.000380   
+         yearly\_salary                                    0.006602      -0.002121   
+         age                                              0.011177       0.002591   
+         dependent\_number                                -0.000816      -0.005861   
+         loan\_repaid                                     -0.002704       0.012824   
+         purpose\_other                                   -0.003571      -0.001679   
+         purpose\_business                                 0.006619       0.006942   
+         purpose\_emergency\_funds                         -0.006748      -0.013316   
+         purpose\_investment                               0.003740       0.002527   
+         purpose\_home                                    -0.001342       0.003613   
+         
+                                                          fully\_repaid\_previous\_loans  \textbackslash{}
+         loan\_id                                                             0.001710   
+         is\_first\_loan                                                            NaN   
+         fully\_repaid\_previous\_loans                                         1.000000   
+         currently\_repaying\_other\_loans                                     -0.015923   
+         total\_credit\_card\_limit                                             0.031333   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year                    -0.001759   
+         saving\_amount                                                       0.014028   
+         checking\_amount                                                     0.020963   
+         is\_employed                                                         0.002697   
+         yearly\_salary                                                       0.008098   
+         age                                                                 0.009527   
+         dependent\_number                                                    0.001105   
+         loan\_repaid                                                         0.038665   
+         purpose\_other                                                      -0.014614   
+         purpose\_business                                                   -0.006204   
+         purpose\_emergency\_funds                                            -0.002374   
+         purpose\_investment                                                  0.021886   
+         purpose\_home                                                       -0.001077   
+         
+                                                          currently\_repaying\_other\_loans  \textbackslash{}
+         loan\_id                                                                0.005651   
+         is\_first\_loan                                                               NaN   
+         fully\_repaid\_previous\_loans                                           -0.015923   
+         currently\_repaying\_other\_loans                                         1.000000   
+         total\_credit\_card\_limit                                               -0.198214   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year                        0.094812   
+         saving\_amount                                                         -0.251634   
+         checking\_amount                                                       -0.248012   
+         is\_employed                                                           -0.154352   
+         yearly\_salary                                                         -0.215739   
+         age                                                                   -0.008255   
+         dependent\_number                                                       0.075054   
+         loan\_repaid                                                           -0.496350   
+         purpose\_other                                                          0.023734   
+         purpose\_business                                                      -0.043297   
+         purpose\_emergency\_funds                                                0.074131   
+         purpose\_investment                                                    -0.039280   
+         purpose\_home                                                          -0.004114   
+         
+                                                          total\_credit\_card\_limit  \textbackslash{}
+         loan\_id                                                        -0.000655   
+         is\_first\_loan                                                   0.003657   
+         fully\_repaid\_previous\_loans                                     0.031333   
+         currently\_repaying\_other\_loans                                 -0.198214   
+         total\_credit\_card\_limit                                         1.000000   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year                -0.076596   
+         saving\_amount                                                   0.194137   
+         checking\_amount                                                 0.203409   
+         is\_employed                                                     0.156715   
+         yearly\_salary                                                   0.186868   
+         age                                                             0.000168   
+         dependent\_number                                               -0.059254   
+         loan\_repaid                                                     0.401911   
+         purpose\_other                                                  -0.029167   
+         purpose\_business                                                0.043437   
+         purpose\_emergency\_funds                                        -0.057069   
+         purpose\_investment                                              0.032787   
+         purpose\_home                                                   -0.001100   
+         
+                                                          avg\_percentage\_credit\_card\_limit\_used\_last\_year  \textbackslash{}
+         loan\_id                                                                                 0.001768   
+         is\_first\_loan                                                                          -0.004016   
+         fully\_repaid\_previous\_loans                                                            -0.001759   
+         currently\_repaying\_other\_loans                                                          0.094812   
+         total\_credit\_card\_limit                                                                -0.076596   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year                                         1.000000   
+         saving\_amount                                                                          -0.098045   
+         checking\_amount                                                                        -0.101262   
+         is\_employed                                                                            -0.089726   
+         yearly\_salary                                                                          -0.102187   
+         age                                                                                     0.003110   
+         dependent\_number                                                                        0.026807   
+         loan\_repaid                                                                            -0.209870   
+         purpose\_other                                                                           0.022634   
+         purpose\_business                                                                       -0.022539   
+         purpose\_emergency\_funds                                                                 0.030959   
+         purpose\_investment                                                                     -0.007637   
+         purpose\_home                                                                           -0.015720   
+         
+                                                          saving\_amount  \textbackslash{}
+         loan\_id                                              -0.004482   
+         is\_first\_loan                                         0.009611   
+         fully\_repaid\_previous\_loans                           0.014028   
+         currently\_repaying\_other\_loans                       -0.251634   
+         total\_credit\_card\_limit                               0.194137   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year      -0.098045   
+         saving\_amount                                         1.000000   
+         checking\_amount                                       0.238092   
+         is\_employed                                           0.148637   
+         yearly\_salary                                         0.210556   
+         age                                                  -0.004327   
+         dependent\_number                                     -0.064931   
+         loan\_repaid                                           0.493699   
+         purpose\_other                                        -0.037777   
+         purpose\_business                                      0.041576   
+         purpose\_emergency\_funds                              -0.073808   
+         purpose\_investment                                    0.042976   
+         purpose\_home                                          0.012296   
+         
+                                                          checking\_amount  is\_employed  \textbackslash{}
+         loan\_id                                                -0.000531     0.012130   
+         is\_first\_loan                                           0.010356    -0.000380   
+         fully\_repaid\_previous\_loans                             0.020963     0.002697   
+         currently\_repaying\_other\_loans                         -0.248012    -0.154352   
+         total\_credit\_card\_limit                                 0.203409     0.156715   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year        -0.101262    -0.089726   
+         saving\_amount                                           0.238092     0.148637   
+         checking\_amount                                         1.000000     0.151237   
+         is\_employed                                             0.151237     1.000000   
+         yearly\_salary                                           0.210244     0.565322   
+         age                                                     0.005039     0.005004   
+         dependent\_number                                       -0.071816    -0.042867   
+         loan\_repaid                                             0.494341     0.305749   
+         purpose\_other                                          -0.036413    -0.040120   
+         purpose\_business                                        0.040610     0.025119   
+         purpose\_emergency\_funds                                -0.070055    -0.040674   
+         purpose\_investment                                      0.039581     0.034891   
+         purpose\_home                                            0.012180     0.009598   
+         
+                                                          yearly\_salary       age  \textbackslash{}
+         loan\_id                                               0.006602  0.011177   
+         is\_first\_loan                                        -0.002121  0.002591   
+         fully\_repaid\_previous\_loans                           0.008098  0.009527   
+         currently\_repaying\_other\_loans                       -0.215739 -0.008255   
+         total\_credit\_card\_limit                               0.186868  0.000168   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year      -0.102187  0.003110   
+         saving\_amount                                         0.210556 -0.004327   
+         checking\_amount                                       0.210244  0.005039   
+         is\_employed                                           0.565322  0.005004   
+         yearly\_salary                                         1.000000  0.009329   
+         age                                                   0.009329  1.000000   
+         dependent\_number                                     -0.063628 -0.001281   
+         loan\_repaid                                           0.426648  0.000947   
+         purpose\_other                                        -0.038530  0.005612   
+         purpose\_business                                      0.039910  0.009843   
+         purpose\_emergency\_funds                              -0.058598 -0.014166   
+         purpose\_investment                                    0.037036 -0.000665   
+         purpose\_home                                          0.007215 -0.001370   
+         
+                                                          dependent\_number  \textbackslash{}
+         loan\_id                                                 -0.000816   
+         is\_first\_loan                                           -0.005861   
+         fully\_repaid\_previous\_loans                              0.001105   
+         currently\_repaying\_other\_loans                           0.075054   
+         total\_credit\_card\_limit                                 -0.059254   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year          0.026807   
+         saving\_amount                                           -0.064931   
+         checking\_amount                                         -0.071816   
+         is\_employed                                             -0.042867   
+         yearly\_salary                                           -0.063628   
+         age                                                     -0.001281   
+         dependent\_number                                         1.000000   
+         loan\_repaid                                             -0.136384   
+         purpose\_other                                            0.018753   
+         purpose\_business                                        -0.003657   
+         purpose\_emergency\_funds                                  0.011459   
+         purpose\_investment                                      -0.005931   
+         purpose\_home                                            -0.015922   
+         
+                                                          loan\_repaid  purpose\_other  \textbackslash{}
+         loan\_id                                            -0.002704      -0.003571   
+         is\_first\_loan                                       0.012824      -0.001679   
+         fully\_repaid\_previous\_loans                         0.038665      -0.014614   
+         currently\_repaying\_other\_loans                     -0.496350       0.023734   
+         total\_credit\_card\_limit                             0.401911      -0.029167   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year    -0.209870       0.022634   
+         saving\_amount                                       0.493699      -0.037777   
+         checking\_amount                                     0.494341      -0.036413   
+         is\_employed                                         0.305749      -0.040120   
+         yearly\_salary                                       0.426648      -0.038530   
+         age                                                 0.000947       0.005612   
+         dependent\_number                                   -0.136384       0.018753   
+         loan\_repaid                                         1.000000      -0.079813   
+         purpose\_other                                      -0.079813       1.000000   
+         purpose\_business                                    0.088177      -0.222593   
+         purpose\_emergency\_funds                            -0.142721      -0.181546   
+         purpose\_investment                                  0.079986      -0.220322   
+         purpose\_home                                        0.024759      -0.233799   
+         
+                                                          purpose\_business  \textbackslash{}
+         loan\_id                                                  0.006619   
+         is\_first\_loan                                            0.006942   
+         fully\_repaid\_previous\_loans                             -0.006204   
+         currently\_repaying\_other\_loans                          -0.043297   
+         total\_credit\_card\_limit                                  0.043437   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year         -0.022539   
+         saving\_amount                                            0.041576   
+         checking\_amount                                          0.040610   
+         is\_employed                                              0.025119   
+         yearly\_salary                                            0.039910   
+         age                                                      0.009843   
+         dependent\_number                                        -0.003657   
+         loan\_repaid                                              0.088177   
+         purpose\_other                                           -0.222593   
+         purpose\_business                                         1.000000   
+         purpose\_emergency\_funds                                 -0.238237   
+         purpose\_investment                                      -0.289122   
+         purpose\_home                                            -0.306807   
+         
+                                                          purpose\_emergency\_funds  \textbackslash{}
+         loan\_id                                                        -0.006748   
+         is\_first\_loan                                                  -0.013316   
+         fully\_repaid\_previous\_loans                                    -0.002374   
+         currently\_repaying\_other\_loans                                  0.074131   
+         total\_credit\_card\_limit                                        -0.057069   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year                 0.030959   
+         saving\_amount                                                  -0.073808   
+         checking\_amount                                                -0.070055   
+         is\_employed                                                    -0.040674   
+         yearly\_salary                                                  -0.058598   
+         age                                                            -0.014166   
+         dependent\_number                                                0.011459   
+         loan\_repaid                                                    -0.142721   
+         purpose\_other                                                  -0.181546   
+         purpose\_business                                               -0.238237   
+         purpose\_emergency\_funds                                         1.000000   
+         purpose\_investment                                             -0.235807   
+         purpose\_home                                                   -0.250231   
+         
+                                                          purpose\_investment  \textbackslash{}
+         loan\_id                                                    0.003740   
+         is\_first\_loan                                              0.002527   
+         fully\_repaid\_previous\_loans                                0.021886   
+         currently\_repaying\_other\_loans                            -0.039280   
+         total\_credit\_card\_limit                                    0.032787   
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year           -0.007637   
+         saving\_amount                                              0.042976   
+         checking\_amount                                            0.039581   
+         is\_employed                                                0.034891   
+         yearly\_salary                                              0.037036   
+         age                                                       -0.000665   
+         dependent\_number                                          -0.005931   
+         loan\_repaid                                                0.079986   
+         purpose\_other                                             -0.220322   
+         purpose\_business                                          -0.289122   
+         purpose\_emergency\_funds                                   -0.235807   
+         purpose\_investment                                         1.000000   
+         purpose\_home                                              -0.303678   
+         
+                                                          purpose\_home  
+         loan\_id                                             -0.001342  
+         is\_first\_loan                                        0.003613  
+         fully\_repaid\_previous\_loans                         -0.001077  
+         currently\_repaying\_other\_loans                      -0.004114  
+         total\_credit\_card\_limit                             -0.001100  
+         avg\_percentage\_credit\_card\_limit\_used\_last\_year     -0.015720  
+         saving\_amount                                        0.012296  
+         checking\_amount                                      0.012180  
+         is\_employed                                          0.009598  
+         yearly\_salary                                        0.007215  
+         age                                                 -0.001370  
+         dependent\_number                                    -0.015922  
+         loan\_repaid                                          0.024759  
+         purpose\_other                                       -0.233799  
+         purpose\_business                                    -0.306807  
+         purpose\_emergency\_funds                             -0.250231  
+         purpose\_investment                                  -0.303678  
+         purpose\_home                                         1.000000  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+         \PY{n}{cmap} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{diverging\PYZus{}palette}\PY{p}{(}\PY{l+m+mi}{220}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{as\PYZus{}cmap}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{granted}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{cmap} \PY{o}{=} \PY{n}{cmap}\PY{p}{,}
+                        \PY{n}{square} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,}
+                        \PY{n}{cbar\PYZus{}kws} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shrink}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{o}{.}\PY{l+m+mi}{9}\PY{p}{\PYZcb{}}\PY{p}{,}
+                        \PY{n}{ax} \PY{o}{=} \PY{n}{ax}\PY{p}{,}
+                        \PY{n}{annot} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{,}
+                        \PY{n}{annot\PYZus{}kws} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fontsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{12}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Decide_if_a_bank_should_grant_a_loan_files/Decide_if_a_bank_should_grant_a_loan_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+The correlation plot illustrates several things relevant to missing
+values:
+
+It appears that knowing loan payment history does not play a role in an
+individual's ability to repay loans. However, more than 75\% of the
+individuals actually repaid their previous loans. Therefore it's a
+skewed dataset and mean imputation may not be accurate. Mode imputation
+(mode = 1.0) is more reasonable, but still dangerous to use. Considering
+the huge number of NAs, making them all 1.0 will skew the distribution
+heavily.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{k}{print} \PY{n}{granted}\PY{o}{.}\PY{n}{fully\PYZus{}repaid\PYZus{}previous\PYZus{}loans}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+         \PY{k}{print} \PY{n+nb}{len}\PY{p}{(}\PY{n}{granted}\PY{o}{.}\PY{n}{fully\PYZus{}repaid\PYZus{}previous\PYZus{}loans}\PY{p}{)}
+         \PY{k}{print} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{granted}\PY{o}{.}\PY{n}{fully\PYZus{}repaid\PYZus{}previous\PYZus{}loans} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[ nan   1.   0.]
+47654
+19733
+    \end{Verbatim}
+
+The other two NA cols, disclosure of loan payment current status and
+credit limit, are more (positively) correlated with loan repayment.
+Altering the NA values may have a high influence on data. Considering
+these factors, we decide to fill in the missing values for three cols
+through regression.
+
+\subsection{A. Ignore missing values}\label{a.-ignore-missing-values}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{granted\PYZus{}noNA} \PY{o}{=} \PY{n}{granted}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} or:}
+         \PY{c+c1}{\PYZsh{} granted\PYZus{}noNA = granted.drop([\PYZsq{}fully\PYZus{}repaid\PYZus{}previous\PYZus{}loans\PYZsq{},}
+         \PY{c+c1}{\PYZsh{}                              \PYZsq{}currently\PYZus{}repaying\PYZus{}other\PYZus{}loans\PYZsq{},}
+         \PY{c+c1}{\PYZsh{}                              \PYZsq{}avg\PYZus{}percentage\PYZus{}credit\PYZus{}card\PYZus{}limit\PYZus{}used\PYZus{}last\PYZus{}year\PYZsq{}], axis = 1)}
+         
+         \PY{k}{print} \PY{n}{granted\PYZus{}noNA}\PY{o}{.}\PY{n}{shape}
+         \PY{k}{print} \PY{n}{granted\PYZus{}noNA}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(47654, 15)
+loan\_id                    0
+is\_first\_loan              0
+total\_credit\_card\_limit    0
+saving\_amount              0
+checking\_amount            0
+is\_employed                0
+yearly\_salary              0
+age                        0
+dependent\_number           0
+loan\_repaid                0
+purpose\_other              0
+purpose\_business           0
+purpose\_emergency\_funds    0
+purpose\_investment         0
+purpose\_home               0
+dtype: int64
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{granted\PYZus{}noNA}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} loan\_id                      int64
+         is\_first\_loan                int64
+         total\_credit\_card\_limit      int64
+         saving\_amount                int64
+         checking\_amount              int64
+         is\_employed                  int64
+         yearly\_salary                int64
+         age                          int64
+         dependent\_number             int64
+         loan\_repaid                float64
+         purpose\_other                int64
+         purpose\_business             int64
+         purpose\_emergency\_funds      int64
+         purpose\_investment           int64
+         purpose\_home                 int64
+         dtype: object
+\end{Verbatim}
+        
+\subsection{B. Impute missing values}\label{b.-impute-missing-values}
+
+``Predict'' missing values with k-nearest-neighbor regression or
+classification. Before doing this, it's crucial to scale the data
+because an uneven data space will mess up the KNN algorithm.
+
+The following columns are on a different order of magnitude than the
+rest:
+
+`total\_credit\_card\_limit', `saving\_amount', `checking\_amount',
+`yearly\_salary', `age', `dependent\_number'
+
+These are all positive values with an actual siginificance in their
+positivity. Therefore a standard scaler ((x-mean)/std) is less
+appropriate than a min-max scaler ((x-min)/(max-min)).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{n}{granted\PYZus{}impNA} \PY{o}{=} \PY{n}{granted}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} granted\PYZus{}impNA[\PYZsq{}fully\PYZus{}repaid\PYZus{}previous\PYZus{}loans\PYZsq{}].fillna(granted\PYZus{}impNA[\PYZsq{}fully\PYZus{}repaid\PYZus{}previous\PYZus{}loans\PYZsq{}].mean(), inplace=True)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{r}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{KNeighborsRegressor}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{cols\PYZus{}to\PYZus{}impute} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fully\PYZus{}repaid\PYZus{}previous\PYZus{}loans}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{,}
+                           \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{currently\PYZus{}repaying\PYZus{}other\PYZus{}loans}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{,}
+                           \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{avg\PYZus{}percentage\PYZus{}credit\PYZus{}card\PYZus{}limit\PYZus{}used\PYZus{}last\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{]}
+         \PY{n}{cols\PYZus{}to\PYZus{}scale} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}credit\PYZus{}card\PYZus{}limit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{saving\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checking\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearly\PYZus{}salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dependent\PYZus{}number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{granted\PYZus{}impNA}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}scale}\PY{p}{]} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{granted\PYZus{}impNA}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}scale}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:}    loan\_id  is\_first\_loan  fully\_repaid\_previous\_loans  \textbackslash{}
+         2   135565              1                          NaN   
+         5   423171              1                          NaN   
+         7   200139              1                          NaN   
+         8   991294              0                          1.0   
+         9   875332              0                          1.0   
+         
+            currently\_repaying\_other\_loans  total\_credit\_card\_limit  \textbackslash{}
+         2                             NaN                 0.511111   
+         5                             NaN                 0.451852   
+         7                             NaN                 0.296296   
+         8                             0.0                 0.518519   
+         9                             0.0                 0.318519   
+         
+            avg\_percentage\_credit\_card\_limit\_used\_last\_year  saving\_amount  \textbackslash{}
+         2                                             0.82       0.195940   
+         5                                             0.53       0.579175   
+         7                                             0.57       0.056574   
+         8                                             0.52       0.241989   
+         9                                             0.83       0.067851   
+         
+            checking\_amount  is\_employed  yearly\_salary       age  dependent\_number  \textbackslash{}
+         2         0.259932            1       0.252058  0.327869             1.000   
+         5         0.402431            1       0.303498  0.098361             0.125   
+         7         0.209419            1       0.326132  0.295082             1.000   
+         8         0.221572            1       0.605967  0.245902             0.375   
+         9         0.067755            1       0.055556  0.229508             0.875   
+         
+            loan\_repaid  purpose\_other  purpose\_business  purpose\_emergency\_funds  \textbackslash{}
+         2          1.0              1                 0                        0   
+         5          1.0              1                 0                        0   
+         7          0.0              0                 1                        0   
+         8          1.0              0                 0                        1   
+         9          1.0              0                 1                        0   
+         
+            purpose\_investment  purpose\_home  
+         2                   0             0  
+         5                   0             0  
+         7                   0             0  
+         8                   0             0  
+         9                   0             0  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{k}{for} \PY{n}{col}\PY{p}{,} \PY{n}{model} \PY{o+ow}{in} \PY{n}{cols\PYZus{}to\PYZus{}impute}\PY{p}{:}
+             \PY{n}{colImputed} \PY{o}{=} \PY{n}{fill\PYZus{}na\PYZus{}KNN}\PY{p}{(}\PY{n}{granted\PYZus{}impNA}\PY{p}{,} \PY{n}{col}\PY{p}{,} \PY{n}{model}\PY{p}{)}
+             \PY{n}{granted\PYZus{}impNA}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{colImputed}
+             \PY{k}{print} \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+loan\_id                                                0
+is\_first\_loan                                          0
+fully\_repaid\_previous\_loans                            0
+currently\_repaying\_other\_loans                     25789
+total\_credit\_card\_limit                                0
+avg\_percentage\_credit\_card\_limit\_used\_last\_year      903
+saving\_amount                                          0
+checking\_amount                                        0
+is\_employed                                            0
+yearly\_salary                                          0
+age                                                    0
+dependent\_number                                       0
+loan\_repaid                                            0
+purpose\_other                                          0
+purpose\_business                                       0
+purpose\_emergency\_funds                                0
+purpose\_investment                                     0
+purpose\_home                                           0
+dtype: int64
+loan\_id                                              0
+is\_first\_loan                                        0
+fully\_repaid\_previous\_loans                          0
+currently\_repaying\_other\_loans                       0
+total\_credit\_card\_limit                              0
+avg\_percentage\_credit\_card\_limit\_used\_last\_year    903
+saving\_amount                                        0
+checking\_amount                                      0
+is\_employed                                          0
+yearly\_salary                                        0
+age                                                  0
+dependent\_number                                     0
+loan\_repaid                                          0
+purpose\_other                                        0
+purpose\_business                                     0
+purpose\_emergency\_funds                              0
+purpose\_investment                                   0
+purpose\_home                                         0
+dtype: int64
+loan\_id                                            0
+is\_first\_loan                                      0
+fully\_repaid\_previous\_loans                        0
+currently\_repaying\_other\_loans                     0
+total\_credit\_card\_limit                            0
+avg\_percentage\_credit\_card\_limit\_used\_last\_year    0
+saving\_amount                                      0
+checking\_amount                                    0
+is\_employed                                        0
+yearly\_salary                                      0
+age                                                0
+dependent\_number                                   0
+loan\_repaid                                        0
+purpose\_other                                      0
+purpose\_business                                   0
+purpose\_emergency\_funds                            0
+purpose\_investment                                 0
+purpose\_home                                       0
+dtype: int64
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{k}{print} \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{shape}
+         \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(47654, 18)
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:}    loan\_id  is\_first\_loan  fully\_repaid\_previous\_loans  \textbackslash{}
+         2   135565              1                          1.0   
+         5   423171              1                          1.0   
+         7   200139              1                          1.0   
+         8   991294              0                          1.0   
+         9   875332              0                          1.0   
+         
+            currently\_repaying\_other\_loans  total\_credit\_card\_limit  \textbackslash{}
+         2                             0.0                 0.511111   
+         5                             0.0                 0.451852   
+         7                             0.0                 0.296296   
+         8                             0.0                 0.518519   
+         9                             0.0                 0.318519   
+         
+            avg\_percentage\_credit\_card\_limit\_used\_last\_year  saving\_amount  \textbackslash{}
+         2                                             0.82       0.195940   
+         5                                             0.53       0.579175   
+         7                                             0.57       0.056574   
+         8                                             0.52       0.241989   
+         9                                             0.83       0.067851   
+         
+            checking\_amount  is\_employed  yearly\_salary       age  dependent\_number  \textbackslash{}
+         2         0.259932            1       0.252058  0.327869             1.000   
+         5         0.402431            1       0.303498  0.098361             0.125   
+         7         0.209419            1       0.326132  0.295082             1.000   
+         8         0.221572            1       0.605967  0.245902             0.375   
+         9         0.067755            1       0.055556  0.229508             0.875   
+         
+            loan\_repaid  purpose\_other  purpose\_business  purpose\_emergency\_funds  \textbackslash{}
+         2          1.0              1                 0                        0   
+         5          1.0              1                 0                        0   
+         7          0.0              0                 1                        0   
+         8          1.0              0                 0                        1   
+         9          1.0              0                 1                        0   
+         
+            purpose\_investment  purpose\_home  
+         2                   0             0  
+         5                   0             0  
+         7                   0             0  
+         8                   0             0  
+         9                   0             0  
+\end{Verbatim}
+        
+\section{\texorpdfstring{5. Drop `loan\_id'
+column}{5. Drop loan\_id column}}\label{drop-loan_id-column}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{granted\PYZus{}noNA}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{k}{print} \PY{n}{granted\PYZus{}noNA}\PY{o}{.}\PY{n}{shape}
+         \PY{k}{print} \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(47654, 14)
+(47654, 17)
+    \end{Verbatim}
+
+\section{6. Scaling continued\ldots{}}\label{scaling-continued}
+
+Lastly, bring back the non-scaled version of both `noNA' and `impNA'
+datasets.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{granted\PYZus{}noNA\PYZus{}sca} \PY{o}{=} \PY{n}{granted\PYZus{}noNA}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{granted\PYZus{}noNA\PYZus{}sca}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}scale}\PY{p}{]} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{granted\PYZus{}noNA\PYZus{}sca}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}scale}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{granted\PYZus{}impNA\PYZus{}sca} \PY{o}{=} \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{granted\PYZus{}impNA}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}scale}\PY{p}{]} \PY{o}{=} \PY{n}{granted\PYZus{}noNA}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}scale}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{k}{print} \PY{n}{granted\PYZus{}noNA}\PY{o}{.}\PY{n}{shape}
+         \PY{k}{print} \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{shape}
+         
+         \PY{k}{print} \PY{n}{granted\PYZus{}noNA\PYZus{}sca}\PY{o}{.}\PY{n}{shape}
+         \PY{k}{print} \PY{n}{granted\PYZus{}impNA\PYZus{}sca}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(47654, 14)
+(47654, 17)
+(47654, 14)
+(47654, 17)
+    \end{Verbatim}
+
+\chapter{Build models to predict grant
+repayment}\label{build-models-to-predict-grant-repayment}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{dfs} \PY{o}{=} \PY{p}{[}\PY{n}{granted\PYZus{}noNA}\PY{p}{,} \PY{n}{granted\PYZus{}impNA}\PY{p}{,} \PY{n}{granted\PYZus{}noNA\PYZus{}sca}\PY{p}{,} \PY{n}{granted\PYZus{}impNA\PYZus{}sca}\PY{p}{]}
+\end{Verbatim}
+
+\section{Dataset 1: Ignored NAs, not
+scaled}\label{dataset-1-ignored-nas-not-scaled}
+
+\subsection{1. Make training and testing
+data}\label{make-training-and-testing-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{n}{Y} \PY{o}{=} \PY{n}{dfs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{loan\PYZus{}repaid}
+          \PY{n}{X} \PY{o}{=} \PY{n}{dfs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}repaid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}test} \PY{o}{=} \PY{n}{model\PYZus{}selection}\PY{o}{.}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          
+          \PY{k}{print} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}
+          \PY{k}{print} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+          \PY{k}{print} \PY{n}{Y\PYZus{}train}\PY{o}{.}\PY{n}{shape}
+          \PY{k}{print} \PY{n}{Y\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(33357, 13)
+(14297, 13)
+(33357,)
+(14297,)
+    \end{Verbatim}
+
+\subsection{2. Set up model and
+cross-validation}\label{set-up-model-and-cross-validation}
+
+Note a bias-variance tradeoff in choosing k - - Small k: Low variance in
+predicted results, but high bias in models. (e.g.~split into half;
+validate twice; one model may not be too different from the other, but
+they may not generalize well because they haven't seen too much data) -
+Large k: High variance in predicted results, but low bias in models.
+(e.g.~leave-one-out; validate n times; the final model capture the
+characteristics of a lot of models, but may be overfitted - n times! -
+to existing data)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{key\PYZus{}value\PYZus{}pairs} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{naive Bayes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logistic regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SVM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random forest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+                            \PY{p}{]}
+          \PY{n}{models} \PY{o}{=} \PY{n}{collections}\PY{o}{.}\PY{n}{OrderedDict}\PY{p}{(}\PY{n}{key\PYZus{}value\PYZus{}pairs}\PY{p}{)}
+          
+          \PY{n}{cv10} \PY{o}{=} \PY{n}{model\PYZus{}selection}\PY{o}{.}\PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+\subsection{3. Perform cross-validation}\label{perform-cross-validation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}107}]:} \PY{n}{model} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random forest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{Y\PYZus{}pred}\PY{p}{,} \PY{n}{Y\PYZus{}true} \PY{o}{=} \PY{n}{performCV}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{cv10}\PY{p}{,} \PY{n}{model} \PY{o}{=} \PY{n}{model}\PY{p}{)}
+          \PY{n}{Y\PYZus{}pred\PYZus{}unpack}\PY{p}{,} \PY{n}{Y\PYZus{}true\PYZus{}unpack} \PY{o}{=} \PY{n}{unpackCVResults}\PY{p}{(}\PY{n}{Y\PYZus{}pred}\PY{p}{,} \PY{n}{Y\PYZus{}true}\PY{p}{)}
+          \PY{n}{cvScore} \PY{o}{=} \PY{n}{getCVScores}\PY{p}{(}\PY{n}{Y\PYZus{}pred\PYZus{}unpack}\PY{p}{,} \PY{n}{Y\PYZus{}true\PYZus{}unpack}\PY{p}{)}
+          
+          \PY{n}{cvScore}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}107}]:}    accuracy  precision    recall  sensitivity  specificity
+          0  0.905276   0.942391  0.909217     0.909217     0.898046
+          1  0.909173   0.937739  0.918817     0.918817     0.892116
+          2  0.907974   0.941948  0.916629     0.916629     0.891323
+          3  0.910671   0.932921  0.925873     0.925873     0.884236
+          4  0.921163   0.946190  0.929808     0.929808     0.905755
+          5  0.911571   0.949707  0.910154     0.910154     0.914095
+          6  0.912470   0.947814  0.917615     0.917615     0.902546
+          7  0.914843   0.943765  0.919485     0.919485     0.906958
+          8  0.909445   0.933715  0.923149     0.923149     0.885502
+          9  0.914243   0.948850  0.919509     0.919509     0.904049
+\end{Verbatim}
+        
+Simply throwing away the NA cols, predicts us the probability of users
+repaying / defaulting on their loans pretty darn well. (Note that RFs
+are rather tolerant to no scaling.)
+
+\subsection{4. Apply on unseen (test)
+data}\label{apply-on-unseen-test-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{Y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{)}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+         \PY{n}{Y\PYZus{}test\PYZus{}pred\PYZus{}unpack} \PY{o}{=} \PY{p}{[}\PY{n}{pred\PYZus{}val}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{pred\PYZus{}val} \PY{o+ow}{in} \PY{n}{Y\PYZus{}test\PYZus{}pred}\PY{p}{]}
+         
+         \PY{n}{cm\PYZus{}test} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{Y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{Y\PYZus{}test\PYZus{}pred\PYZus{}unpack}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{)}
+         \PY{n}{accuracy}\PY{p}{,} \PY{n}{sensitivity}\PY{p}{,} \PY{n}{specificity}\PY{p}{,} \PY{n}{precision} \PY{o}{=} \PY{n}{evalModel}\PY{p}{(}\PY{n}{cm\PYZus{}test}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{model}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing accuracy: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing precision: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{precision}
+         \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing recall: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sensitivity}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model:  RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+            max\_depth=None, max\_features='auto', max\_leaf\_nodes=None,
+            min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+            min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+            n\_estimators=100, n\_jobs=1, oob\_score=False, random\_state=None,
+            verbose=0, warm\_start=False)
+Testing accuracy:  0.915506749668
+Testing precision:  0.94496942746
+Testing recall:  0.922609356344
+    \end{Verbatim}
+
+\subsection{5. Insights from model}\label{insights-from-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{n}{Y\PYZus{}test\PYZus{}pred\PYZus{}featImp} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{)}
+         
+         \PY{n}{importances} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+         \PY{n}{std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{[}\PY{n}{indivTree}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}} \PY{k}{for} \PY{n}{indivTree} \PY{o+ow}{in} \PY{n}{model}\PY{o}{.}\PY{n}{estimators\PYZus{}}\PY{p}{]}\PY{p}{,}
+                      \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{importances}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Feature ranking:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+             \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{. }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ (}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{f} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Feature ranking:
+1. saving\_amount (0.321948)
+2. checking\_amount (0.275183)
+3. yearly\_salary (0.149150)
+4. total\_credit\_card\_limit (0.120505)
+5. age (0.044307)
+6. is\_employed (0.027806)
+7. dependent\_number (0.027349)
+8. purpose\_emergency\_funds (0.008484)
+9. is\_first\_loan (0.007772)
+10. purpose\_business (0.004682)
+11. purpose\_investment (0.004497)
+12. purpose\_other (0.004294)
+13. purpose\_home (0.004023)
+    \end{Verbatim}
+
+Several things checked out against the simple correlation run earlier: -
+Cash positions such as back account, salary matter highly - Loan purpose
+for emergency matters more than the other purposes
+
+Age, interestingly, matters moderately highly.
+
+Now plot the feature importances of the forest.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} plt.figure() \PYZsh{} If this line is included, an empty plot appears.}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Feature importances}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{yerr}\PY{o}{=}\PY{n}{std}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{indices}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} If this line is not included, a bunch of msgs appear}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Decide_if_a_bank_should_grant_a_loan_files/Decide_if_a_bank_should_grant_a_loan_68_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+While one can try a different model or do grid-search to tune the RF
+parameters, priority of this action is low since default params
+performed pretty well in this case. It would be more interesting to
+compare with a model built from the dataset with features containing
+guessed NA values.
+
+\section{Dataset 2: Imputed NAs, not
+scaled}\label{dataset-2-imputed-nas-not-scaled}
+
+\subsection{1. Make training and testing
+data}\label{make-training-and-testing-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{Y} \PY{o}{=} \PY{n}{dfs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{loan\PYZus{}repaid}
+          \PY{n}{X} \PY{o}{=} \PY{n}{dfs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}repaid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}test} \PY{o}{=} \PY{n}{model\PYZus{}selection}\PY{o}{.}\PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          
+          \PY{k}{print} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}
+          \PY{k}{print} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+          \PY{k}{print} \PY{n}{Y\PYZus{}train}\PY{o}{.}\PY{n}{shape}
+          \PY{k}{print} \PY{n}{Y\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(33357, 16)
+(14297, 16)
+(33357,)
+(14297,)
+    \end{Verbatim}
+
+\subsection{2. Set up model and
+cross-validation}\label{set-up-model-and-cross-validation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{key\PYZus{}value\PYZus{}pairs} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{naive Bayes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logistic regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SVM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{svm}\PY{o}{.}\PY{n}{SVC}\PY{p}{(}\PY{n}{degree}\PY{o}{=}\PY{l+m+mf}{0.5}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{decision tree}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{tree}\PY{o}{.}\PY{n}{DecisionTreeClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random forest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ensemble}\PY{o}{.}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+                           \PY{p}{]}
+         \PY{n}{models} \PY{o}{=} \PY{n}{collections}\PY{o}{.}\PY{n}{OrderedDict}\PY{p}{(}\PY{n}{key\PYZus{}value\PYZus{}pairs}\PY{p}{)}
+         
+         \PY{n}{cv10} \PY{o}{=} \PY{n}{model\PYZus{}selection}\PY{o}{.}\PY{n}{KFold}\PY{p}{(}\PY{n}{n\PYZus{}splits}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+\subsection{3. Perform cross-validation}\label{perform-cross-validation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{model} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random forest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{Y\PYZus{}pred}\PY{p}{,} \PY{n}{Y\PYZus{}true} \PY{o}{=} \PY{n}{performCV}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{cv10}\PY{p}{,} \PY{n}{model} \PY{o}{=} \PY{n}{model}\PY{p}{)}
+          \PY{n}{Y\PYZus{}pred\PYZus{}unpack}\PY{p}{,} \PY{n}{Y\PYZus{}true\PYZus{}unpack} \PY{o}{=} \PY{n}{unpackCVResults}\PY{p}{(}\PY{n}{Y\PYZus{}pred}\PY{p}{,} \PY{n}{Y\PYZus{}true}\PY{p}{)}
+          \PY{n}{cvScore} \PY{o}{=} \PY{n}{getCVScores}\PY{p}{(}\PY{n}{Y\PYZus{}pred\PYZus{}unpack}\PY{p}{,} \PY{n}{Y\PYZus{}true\PYZus{}unpack}\PY{p}{)}
+          
+          \PY{n}{cvScore}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:}    accuracy  precision    recall  sensitivity  specificity
+          0  0.915168   0.944972  0.922649     0.922649     0.901444
+          1  0.914269   0.943296  0.921164     0.921164     0.902075
+          2  0.913369   0.944496  0.922551     0.922551     0.895706
+          3  0.921163   0.940199  0.935316     0.935316     0.896552
+          4  0.925959   0.947867  0.935891     0.935891     0.908257
+          5  0.917566   0.952821  0.916706     0.916706     0.919099
+          6  0.920264   0.950537  0.927173     0.927173     0.906936
+          7  0.922339   0.947907  0.927585     0.927585     0.913430
+          8  0.914843   0.934690  0.931165     0.931165     0.886326
+          9  0.918141   0.948324  0.926330     0.926330     0.902289
+\end{Verbatim}
+        
+Is this better? Can't quite tell. Let's go onto testing.
+
+\subsection{4. Apply on unseen (test)
+data}\label{apply-on-unseen-test-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{Y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{)}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          \PY{n}{Y\PYZus{}test\PYZus{}pred\PYZus{}unpack} \PY{o}{=} \PY{p}{[}\PY{n}{pred\PYZus{}val}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{pred\PYZus{}val} \PY{o+ow}{in} \PY{n}{Y\PYZus{}test\PYZus{}pred}\PY{p}{]}
+          
+          \PY{n}{cm\PYZus{}test} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}true} \PY{o}{=} \PY{n}{Y\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{Y\PYZus{}test\PYZus{}pred\PYZus{}unpack}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n+nb+bp}{None}\PY{p}{)}
+          \PY{n}{accuracy}\PY{p}{,} \PY{n}{sensitivity}\PY{p}{,} \PY{n}{specificity}\PY{p}{,} \PY{n}{precision} \PY{o}{=} \PY{n}{evalModel}\PY{p}{(}\PY{n}{cm\PYZus{}test}\PY{p}{)}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{model}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing accuracy: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{accuracy}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing precision: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{precision}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Testing recall: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sensitivity}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model:  RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+            max\_depth=None, max\_features='auto', max\_leaf\_nodes=None,
+            min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+            min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+            n\_estimators=100, n\_jobs=1, oob\_score=False, random\_state=None,
+            verbose=0, warm\_start=False)
+Testing accuracy:  0.922011610827
+Testing precision:  0.947601149679
+Testing recall:  0.930424400304
+    \end{Verbatim}
+
+Slightly better testing performance, from \textbf{91.5\%} to
+\textbf{92.2\%} accuracy.
+
+\subsection{5. Insights from model}\label{insights-from-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{n}{Y\PYZus{}test\PYZus{}pred\PYZus{}featImp} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{)}
+          
+          \PY{n}{importances} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+          \PY{n}{std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{[}\PY{n}{indivTree}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}} \PY{k}{for} \PY{n}{indivTree} \PY{o+ow}{in} \PY{n}{model}\PY{o}{.}\PY{n}{estimators\PYZus{}}\PY{p}{]}\PY{p}{,}
+                       \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{importances}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Feature ranking:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{f} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+              \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{. }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{ (}\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{f} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{[}\PY{n}{f}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Feature ranking:
+1. saving\_amount (0.313070)
+2. checking\_amount (0.260543)
+3. yearly\_salary (0.127130)
+4. total\_credit\_card\_limit (0.103917)
+5. avg\_percentage\_credit\_card\_limit\_used\_last\_year (0.046815)
+6. age (0.033202)
+7. is\_employed (0.030637)
+8. currently\_repaying\_other\_loans (0.023752)
+9. dependent\_number (0.022118)
+10. is\_first\_loan (0.011961)
+11. purpose\_emergency\_funds (0.006753)
+12. purpose\_business (0.004955)
+13. purpose\_investment (0.004498)
+14. purpose\_home (0.004279)
+15. purpose\_other (0.004154)
+16. fully\_repaid\_previous\_loans (0.002215)
+    \end{Verbatim}
+
+The presence of several moderately high-ranking features improved the
+model accuracy, especially
+`avg\_percentage\_credit\_card\_limit\_used\_last\_year'.
+
+Whether or not previous loans have been fully repaid matters the least.
+It explains why leaving it out previously didn't impact the accuracy all
+that much.
+
+Now plot the feature importances of the forest.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} plt.figure() \PYZsh{} If this line is included, an empty plot appears.}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Feature importances}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,}
+                 \PY{n}{color}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{g}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{yerr}\PY{o}{=}\PY{n}{std}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{indices}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} If this line is not included, a bunch of msgs appear}
+\end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Decide_if_a_bank_should_grant_a_loan_files/Decide_if_a_bank_should_grant_a_loan_81_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\chapter{Predict repayment in those denied the
+loan}\label{predict-repayment-in-those-denied-the-loan}
+
+Now, to see how many cases the bank missed out on.
+
+First we need to take the ``loans denied'' data through the same
+cleaning. Then use the granted data with imputed missing values for
+prediction.
+
+Here it would be interesting to note if a better model can be built by
+imputing missing values from the entire loanData, not just from the
+granted dataset. Let's take the imputation of the granted dataset as
+what we've done for now.
+
+Just to remind ourselves, the granted data has 16 features:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:} (47654, 17)
+\end{Verbatim}
+        
+\section{Clean data}\label{clean-data}
+
+\subsection{1. Drop unhelpful columns}\label{drop-unhelpful-columns}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{denied} \PY{o}{=} \PY{n}{loanData}\PY{p}{[}\PY{n}{loanData}\PY{o}{.}\PY{n}{loan\PYZus{}granted} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{denied}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}granted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}granted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}repaid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+          \PY{k}{print} \PY{n}{denied}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(53446, 12)
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/yingjiang/miniconda2/lib/python2.7/site-packages/ipykernel/\_\_main\_\_.py:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  from ipykernel import kernelapp as app
+    \end{Verbatim}
+
+\subsection{2. Convert categorical variable into
+numeric}\label{convert-categorical-variable-into-numeric}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{k}{for} \PY{n}{purpose} \PY{o+ow}{in} \PY{n}{denied}\PY{o}{.}\PY{n}{loan\PYZus{}purpose}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{denied}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{purpose\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n}{purpose}\PY{p}{]} \PY{o}{=} \PY{n}{denied}\PY{o}{.}\PY{n}{loan\PYZus{}purpose}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{n}{purpose}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          \PY{n}{denied}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}purpose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/yingjiang/miniconda2/lib/python2.7/site-packages/ipykernel/\_\_main\_\_.py:2: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  from ipykernel import kernelapp as app
+/Users/yingjiang/miniconda2/lib/python2.7/site-packages/ipykernel/\_\_main\_\_.py:3: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  app.launch\_new\_instance()
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{denied}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}116}]:}    is\_first\_loan  fully\_repaid\_previous\_loans  currently\_repaying\_other\_loans  \textbackslash{}
+          0              1                          NaN                             NaN   
+          1              0                          1.0                             0.0   
+          3              0                          1.0                             0.0   
+          4              0                          0.0                             0.0   
+          6              1                          NaN                             NaN   
+          
+             total\_credit\_card\_limit  avg\_percentage\_credit\_card\_limit\_used\_last\_year  \textbackslash{}
+          0                     8000                                             0.49   
+          1                     4500                                             1.03   
+          3                     1200                                             0.82   
+          4                     6900                                             0.80   
+          6                      600                                             0.89   
+          
+             saving\_amount  checking\_amount  is\_employed  yearly\_salary  age  \textbackslash{}
+          0           3285             1073            0              0   47   
+          1            636             5299            1          13500   33   
+          3            358             3388            0              0   24   
+          4           2138             4282            1          18100   36   
+          6            305             1456            0              0   50   
+          
+             dependent\_number  purpose\_business  purpose\_investment  \textbackslash{}
+          0                 3                 1                   0   
+          1                 1                 0                   1   
+          3                 1                 0                   1   
+          4                 1                 0                   0   
+          6                 2                 0                   0   
+          
+             purpose\_emergency\_funds  purpose\_other  purpose\_home  
+          0                        0              0             0  
+          1                        0              0             0  
+          3                        0              0             0  
+          4                        1              0             0  
+          6                        1              0             0  
+\end{Verbatim}
+        
+\subsection{3. Deal with missing values}\label{deal-with-missing-values}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n}{denied\PYZus{}impNA} \PY{o}{=} \PY{n}{denied}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{r}\PY{p}{,} \PY{n}{c} \PY{o}{=} \PY{n}{KNeighborsRegressor}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{cols\PYZus{}to\PYZus{}impute} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fully\PYZus{}repaid\PYZus{}previous\PYZus{}loans}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{,}
+                            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{currently\PYZus{}repaying\PYZus{}other\PYZus{}loans}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{p}{)}\PY{p}{,}
+                            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{avg\PYZus{}percentage\PYZus{}credit\PYZus{}card\PYZus{}limit\PYZus{}used\PYZus{}last\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{r}\PY{p}{)}\PY{p}{]}
+          \PY{n}{cols\PYZus{}to\PYZus{}scale} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}credit\PYZus{}card\PYZus{}limit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{saving\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{checking\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{yearly\PYZus{}salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dependent\PYZus{}number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{n}{denied\PYZus{}impNA}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}scale}\PY{p}{]} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{denied\PYZus{}impNA}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}scale}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{n}{denied\PYZus{}impNA}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}121}]:}    is\_first\_loan  fully\_repaid\_previous\_loans  currently\_repaying\_other\_loans  \textbackslash{}
+          0              1                          NaN                             NaN   
+          1              0                          1.0                             0.0   
+          3              0                          1.0                             0.0   
+          4              0                          0.0                             0.0   
+          6              1                          NaN                             NaN   
+          
+             total\_credit\_card\_limit  avg\_percentage\_credit\_card\_limit\_used\_last\_year  \textbackslash{}
+          0                 0.601504                                             0.49   
+          1                 0.338346                                             1.03   
+          3                 0.090226                                             0.82   
+          4                 0.518797                                             0.80   
+          6                 0.045113                                             0.89   
+          
+             saving\_amount  checking\_amount  is\_employed  yearly\_salary       age  \textbackslash{}
+          0       0.340133         0.077095            0       0.000000  0.475410   
+          1       0.065852         0.381014            1       0.148842  0.245902   
+          3       0.037068         0.243581            0       0.000000  0.098361   
+          4       0.221371         0.307875            1       0.199559  0.295082   
+          6       0.031580         0.104639            0       0.000000  0.524590   
+          
+             dependent\_number  purpose\_business  purpose\_investment  \textbackslash{}
+          0             0.375                 1                   0   
+          1             0.125                 0                   1   
+          3             0.125                 0                   1   
+          4             0.125                 0                   0   
+          6             0.250                 0                   0   
+          
+             purpose\_emergency\_funds  purpose\_other  purpose\_home  
+          0                        0              0             0  
+          1                        0              0             0  
+          3                        0              0             0  
+          4                        1              0             0  
+          6                        1              0             0  
+\end{Verbatim}
+        
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{k}{for} \PY{n}{col}\PY{p}{,} \PY{n}{model} \PY{o+ow}{in} \PY{n}{cols\PYZus{}to\PYZus{}impute}\PY{p}{:}
+              \PY{n}{colImputed} \PY{o}{=} \PY{n}{fill\PYZus{}na\PYZus{}KNN}\PY{p}{(}\PY{n}{denied\PYZus{}impNA}\PY{p}{,} \PY{n}{col}\PY{p}{,} \PY{n}{model}\PY{p}{)}
+              \PY{n}{denied\PYZus{}impNA}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{colImputed}
+              \PY{k}{print} \PY{n}{denied\PYZus{}impNA}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+is\_first\_loan                                          0
+fully\_repaid\_previous\_loans                            0
+currently\_repaying\_other\_loans                     29158
+total\_credit\_card\_limit                                0
+avg\_percentage\_credit\_card\_limit\_used\_last\_year     6069
+saving\_amount                                          0
+checking\_amount                                        0
+is\_employed                                            0
+yearly\_salary                                          0
+age                                                    0
+dependent\_number                                       0
+purpose\_business                                       0
+purpose\_investment                                     0
+purpose\_emergency\_funds                                0
+purpose\_other                                          0
+purpose\_home                                           0
+dtype: int64
+is\_first\_loan                                         0
+fully\_repaid\_previous\_loans                           0
+currently\_repaying\_other\_loans                        0
+total\_credit\_card\_limit                               0
+avg\_percentage\_credit\_card\_limit\_used\_last\_year    6069
+saving\_amount                                         0
+checking\_amount                                       0
+is\_employed                                           0
+yearly\_salary                                         0
+age                                                   0
+dependent\_number                                      0
+purpose\_business                                      0
+purpose\_investment                                    0
+purpose\_emergency\_funds                               0
+purpose\_other                                         0
+purpose\_home                                          0
+dtype: int64
+is\_first\_loan                                      0
+fully\_repaid\_previous\_loans                        0
+currently\_repaying\_other\_loans                     0
+total\_credit\_card\_limit                            0
+avg\_percentage\_credit\_card\_limit\_used\_last\_year    0
+saving\_amount                                      0
+checking\_amount                                    0
+is\_employed                                        0
+yearly\_salary                                      0
+age                                                0
+dependent\_number                                   0
+purpose\_business                                   0
+purpose\_investment                                 0
+purpose\_emergency\_funds                            0
+purpose\_other                                      0
+purpose\_home                                       0
+dtype: int64
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n}{denied\PYZus{}impNA\PYZus{}sca} \PY{o}{=} \PY{n}{denied\PYZus{}impNA}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+          \PY{n}{denied\PYZus{}impNA}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}scale}\PY{p}{]} \PY{o}{=} \PY{n}{denied}\PY{p}{[}\PY{n}{cols\PYZus{}to\PYZus{}scale}\PY{p}{]}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{k}{print} \PY{n}{denied\PYZus{}impNA}\PY{o}{.}\PY{n}{shape}
+          \PY{n}{denied\PYZus{}impNA}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(53446, 16)
+    \end{Verbatim}
+
+            \begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}125}]:}    is\_first\_loan  fully\_repaid\_previous\_loans  currently\_repaying\_other\_loans  \textbackslash{}
+          0              1                          1.0                             0.0   
+          1              0                          1.0                             0.0   
+          3              0                          1.0                             0.0   
+          4              0                          0.0                             0.0   
+          6              1                          1.0                             0.0   
+          
+             total\_credit\_card\_limit  avg\_percentage\_credit\_card\_limit\_used\_last\_year  \textbackslash{}
+          0                     8000                                             0.49   
+          1                     4500                                             1.03   
+          3                     1200                                             0.82   
+          4                     6900                                             0.80   
+          6                      600                                             0.89   
+          
+             saving\_amount  checking\_amount  is\_employed  yearly\_salary  age  \textbackslash{}
+          0           3285             1073            0              0   47   
+          1            636             5299            1          13500   33   
+          3            358             3388            0              0   24   
+          4           2138             4282            1          18100   36   
+          6            305             1456            0              0   50   
+          
+             dependent\_number  purpose\_business  purpose\_investment  \textbackslash{}
+          0                 3                 1                   0   
+          1                 1                 0                   1   
+          3                 1                 0                   1   
+          4                 1                 0                   0   
+          6                 2                 0                   0   
+          
+             purpose\_emergency\_funds  purpose\_other  purpose\_home  
+          0                        0              0             0  
+          1                        0              0             0  
+          3                        0              0             0  
+          4                        1              0             0  
+          6                        1              0             0  
+\end{Verbatim}
+        
+\section{Use the RF model to predict how many cases would've repaid
+loans}\label{use-the-rf-model-to-predict-how-many-cases-wouldve-repaid-loans}
+
+\subsection{1. Make training and testing
+data}\label{make-training-and-testing-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{n}{Y\PYZus{}train} \PY{o}{=} \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{loan\PYZus{}repaid}
+          \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{granted\PYZus{}impNA}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}repaid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{denied\PYZus{}impNA}
+          
+          \PY{k}{print} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}
+          \PY{k}{print} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}
+          \PY{k}{print} \PY{n}{Y\PYZus{}train}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(47654, 16)
+(53446, 16)
+(47654,)
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{n}{model} \PY{o}{=} \PY{n}{models}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random forest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{Y\PYZus{}test\PYZus{}pred} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{)}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          \PY{n}{Y\PYZus{}test\PYZus{}pred\PYZus{}unpack} \PY{o}{=} \PY{p}{[}\PY{n}{pred\PYZus{}val}\PY{o}{.}\PY{n}{argmax}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{pred\PYZus{}val} \PY{o+ow}{in} \PY{n}{Y\PYZus{}test\PYZus{}pred}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} cm\PYZus{}test = metrics.confusion\PYZus{}matrix(y\PYZus{}true = Y\PYZus{}test, y\PYZus{}pred = Y\PYZus{}test\PYZus{}pred\PYZus{}unpack, labels=None)}
+          \PY{c+c1}{\PYZsh{} accuracy, sensitivity, specificity, precision = evalModel(cm\PYZus{}test)}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{model}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of cases denied loan:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of cases predicted to repay loan had they been granted one: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{Y\PYZus{}test\PYZus{}pred\PYZus{}unpack}\PY{p}{)}
+          \PY{k}{print} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of potential revenue lost:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{Y\PYZus{}test\PYZus{}pred\PYZus{}unpack}\PY{p}{)}\PY{o}{/}\PY{n+nb}{float}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model:  RandomForestClassifier(bootstrap=True, class\_weight=None, criterion='gini',
+            max\_depth=None, max\_features='auto', max\_leaf\_nodes=None,
+            min\_impurity\_split=1e-07, min\_samples\_leaf=1,
+            min\_samples\_split=2, min\_weight\_fraction\_leaf=0.0,
+            n\_estimators=100, n\_jobs=1, oob\_score=False, random\_state=None,
+            verbose=0, warm\_start=False)
+Number of cases denied loan: 53446
+Number of cases predicted to repay loan had they been granted one:  18443
+Percentage of potential revenue lost: 0.345077274258
+    \end{Verbatim}
+
+The bank missed 35\% of the business it could've done by granting a
+loan, which in turn could've yielded a return.
+
+\chapter{Summary and conclusion}\label{summary-and-conclusion}
+
+By analyzing the loan applications where loan has been granted, we built
+a model that predicts an individual's ability to repay a loan at 92\%
+accuracy. We find that the following attributes of a person helps with
+prediction: 1. His/Her cash position (bank accounts, salary) 2. His/Her
+credit position (total credit card limit, previous limit use) 3. His/her
+age, employment status, other loan commitment and number of dependents
+4. He/She is less likely to repay the loan if the purpose of borrowing
+had been for emergency needs
+
+Applying the model on the cases that have been denied a loan, we find
+that up to 35\% of these cases could have repaid the loan. Therefore our
+prediction would help the bank justify not to be too conservative on
+granting loans, which potentially causes non trivial losses.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} 
+\end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
